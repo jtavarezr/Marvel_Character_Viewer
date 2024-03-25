@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "../assets/css/CharacterInfo.css"
+import "../assets/css/CharacterInfo.css";
+import welcomeImage from "/marvel.png"; // Importa la imagen de bienvenida
 
 const CharacterInfo = ({ character }) => {
   const [seriesList, setSeriesList] = useState([]);
+  const [welcomeMessage, setWelcomeMessage] = useState(true); // Nuevo estado para el mensaje de bienvenida
 
   const limit = 50;
   const offset = 0;
   const API_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
 
-  const url = `https://gateway.marvel.com:443/v1/public/characters/${character.id}/series?limit=${limit}&offset=${offset}&apikey=${API_KEY}`;
+  const url = `https://gateway.marvel.com:443/v1/public/characters/${character?.id}/series?limit=${limit}&offset=${offset}&apikey=${API_KEY}`;
 
   const fetchData = async () => {
     try {
@@ -18,6 +20,7 @@ const CharacterInfo = ({ character }) => {
       }
       const data = await response.json();
       setSeriesList(data.data.results);
+      setWelcomeMessage(false); // Oculta el mensaje de bienvenida cuando se carga la información del personaje
     } catch (error) {
       console.error("Error fetching series data:", error);
     }
@@ -25,7 +28,7 @@ const CharacterInfo = ({ character }) => {
 
   useEffect(() => {
     fetchData();
-  }, []); // Ejecuta solo una vez al montar el componente
+  }, [character?.id]); // Ejecuta cada vez que el personaje seleccionado cambia
 
   const handleClick = () => {
     console.log("Se ha pulsado el botón");
@@ -35,18 +38,42 @@ const CharacterInfo = ({ character }) => {
   return (
     <>
       <div className="whole-info">
-      <div className="character-card" onClick={handleClick}>
-        <img
-          src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
-          alt={character.name}
-          className="character-image"
-        />
-        <div className="character-details">
-          <h2 className="character-name">{character.name}</h2>
-          <p className="character-description">
-            {character.description || "No description available"}
-          </p>
-          </div>
+        <div className="character-card" onClick={handleClick}>
+          {!character || welcomeMessage ? (
+            // Muestra la imagen de bienvenida junto con el mensaje
+            <div>
+              <h1>Select your character </h1>
+              <img src={welcomeImage} alt="Welcome" className="welcome-image" />
+              <h3>To start seeing their info</h3>
+            </div>
+          ) : (
+            <>
+              {/* Muestra la imagen del personaje y su información */}
+              <img
+                src={`${character?.thumbnail?.path}/portrait_uncanny.${character?.thumbnail?.extension}`}
+                alt={character?.name}
+                className="character-image"
+              />
+              <div className="character-details">
+                <h2 className="character-name">{character?.name}</h2>
+                <p className="character-description">
+                  {character?.description || "No description available"}
+                </p>
+                {character?.urls &&
+                  character.urls.map((url, index) => (
+                    <a
+                      key={index}
+                      href={url.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="character-link"
+                    >
+                      {url.type}
+                    </a>
+                  ))}
+              </div>
+            </>
+          )}
         </div>
         <br />
         <div className="grid-containergrid">

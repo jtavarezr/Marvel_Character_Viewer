@@ -36,6 +36,13 @@
     margin-right: 20px;
     /* Espacio a la derecha de la imagen */
 }
+.welcome-image {
+    flex: 0 0 50%;
+    width: 100%;
+    /* La imagen ocupa el 40% del espacio flexible */
+    margin-right: 0px;
+    /* Espacio a la derecha de la imagen */
+}
 
 .character-details {
     flex: 1;
