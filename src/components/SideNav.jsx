@@ -1,12 +1,12 @@
 import React from "react";
-import CharacterList from "./CharacterList";
+import Charactes from "./Characters";
 
 const SideNav = ({ onCharacterClick }) => {
   return (
     <div className="sidenav">
       <h2>Marvels Characters List</h2>
       {/* Pasa la función onCharacterClick a CharacterList */}
-      <CharacterList onCharacterClick={onCharacterClick} />
+      <Charactes onCharacterClick={onCharacterClick} />
     </div>
   );
 };
