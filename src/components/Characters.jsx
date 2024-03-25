@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import "../assets/css/Characters.css"
+import "../assets/css/Characters.css";
+
 /**
- * Functional Component: List
+ * Functional Component: CharacterList
  * This component displays a list of Marvel characters and allows loading more characters when clicking a button.
+ * @param {function} onCharacterClick - Function to handle click events on a character.
+ * @returns {JSX.Element} CharacterList component.
  */
-const List = ({ onCharacterClick }) => {
+const CharacterList = ({ onCharacterClick }) => {
   // State to store the list of characters
   const [list, setList] = useState(null);
   // State to control the offset of the list when loading more characters
   const [offset, setOffset] = useState(0);
-  // Nuevo estado para el personaje seleccionado
+  // State to store the selected character
   const [selectedCharacter, setSelectedCharacter] = useState(null);
 
   // API key for the Marvel API obtained from the runtime environment
@@ -55,19 +58,17 @@ const List = ({ onCharacterClick }) => {
   };
 
   /**
-   * Function to handle click on a character.
+   * Function to handle click events on a character.
    * @param {object} character - The selected character.
    */
   const handleClick = (character) => {
-    console.log("handleClick", character);
+    console.log("Clicked character:", character);
     onCharacterClick(character);
-
-    setSelectedCharacter(character); // Actualiza el estado del personaje seleccionado
-    // Here you could implement logic to handle click on a character
+    setSelectedCharacter(character); // Updates the state of the selected character
   };
 
   /**
-   * Function to handle click on the 'Load More' button.
+   * Function to handle click events on the 'Load More' button.
    * Increments the offset to load more characters in the list.
    */
   const handleLoadMore = () => {
@@ -78,11 +79,13 @@ const List = ({ onCharacterClick }) => {
   return (
     <>
       <div className="characters-list">
-        {list && 
+        {list &&
           list.data &&
           list.data.results.map((character, index) => (
-            <li className="characters-name" key={`${character.id}-${index}`} // Unique key for each list item
-              onClick={() => handleClick(character)} // Handles click on the character
+            <li
+              className="characters-name"
+              key={`${character.id}-${index}`}
+              onClick={() => handleClick(character)}
             >
               {character.name} {/* Displays the name of the character */}
             </li>
@@ -90,10 +93,8 @@ const List = ({ onCharacterClick }) => {
       </div>
       <button onClick={handleLoadMore}>Load More</button>{" "}
       {/* Button to load more characters */}
-      {/* Muestra CharacterInfo solo si selectedCharacter tiene un valor */}
-      {/*selectedCharacter && <CharacterInfo character={selectedCharacter} />*/}
     </>
   );
 };
 
-export default List;
+export default CharacterList;

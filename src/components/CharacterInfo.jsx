@@ -1,17 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/CharacterInfo.css";
-import welcomeImage from "/marvel.png"; // Importa la imagen de bienvenida
+import welcomeImage from "/marvel.png"; // Import the welcome image
 
+/**
+ * CharacterInfo Component
+ * Displays character information and a welcome message if no character is selected.
+ * @param {Object} character - The selected character object.
+ */
 const CharacterInfo = ({ character }) => {
+  // State to store the list of series related to the character
   const [seriesList, setSeriesList] = useState([]);
-  const [welcomeMessage, setWelcomeMessage] = useState(true); // Nuevo estado para el mensaje de bienvenida
+  // State to control the display of the welcome message
+  const [welcomeMessage, setWelcomeMessage] = useState(true);
 
-  const limit = 50;
-  const offset = 0;
-  const API_KEY = import.meta.env.VITE_APP_ACCESS_KEY;
+  const limit = 50; // Limit of series to fetch
+  const offset = 0; // Offset for series pagination
+  const API_KEY = import.meta.env.VITE_APP_ACCESS_KEY; // Marvel API access key
 
+  // URL to fetch series data for the selected character
   const url = `https://gateway.marvel.com:443/v1/public/characters/${character?.id}/series?limit=${limit}&offset=${offset}&apikey=${API_KEY}`;
 
+  /**
+   * Function to fetch series data from the Marvel API.
+   */
   const fetchData = async () => {
     try {
       const response = await fetch(url);
@@ -20,7 +31,7 @@ const CharacterInfo = ({ character }) => {
       }
       const data = await response.json();
       setSeriesList(data.data.results);
-      setWelcomeMessage(false); // Oculta el mensaje de bienvenida cuando se carga la información del personaje
+      setWelcomeMessage(false); // Hide the welcome message when character data is loaded
     } catch (error) {
       console.error("Error fetching series data:", error);
     }
@@ -28,10 +39,13 @@ const CharacterInfo = ({ character }) => {
 
   useEffect(() => {
     fetchData();
-  }, [character?.id]); // Ejecuta cada vez que el personaje seleccionado cambia
+  }, [character?.id]); // Execute whenever the selected character changes
 
+  /**
+   * Function to handle click event on the character card.
+   */
   const handleClick = () => {
-    console.log("Se ha pulsado el botón");
+    console.log("Button clicked");
     console.log(seriesList);
   };
 
@@ -40,15 +54,15 @@ const CharacterInfo = ({ character }) => {
       <div className="whole-info">
         <div className="character-card" onClick={handleClick}>
           {!character || welcomeMessage ? (
-            // Muestra la imagen de bienvenida junto con el mensaje
+            // Display the welcome message and image if no character is selected
             <div>
               <h1>Select your character </h1>
               <img src={welcomeImage} alt="Welcome" className="welcome-image" />
               <h3>To start seeing their info</h3>
             </div>
           ) : (
+            // Display the character image and information
             <>
-              {/* Muestra la imagen del personaje y su información */}
               <img
                 src={`${character?.thumbnail?.path}/portrait_uncanny.${character?.thumbnail?.extension}`}
                 alt={character?.name}
@@ -77,6 +91,7 @@ const CharacterInfo = ({ character }) => {
         </div>
         <br />
         <div className="grid-containergrid">
+          {/* Display series related to the character */}
           {seriesList.map((serie) => (
             <div key={serie.id} className="flip-card">
               <div className="flip-card-inner">
