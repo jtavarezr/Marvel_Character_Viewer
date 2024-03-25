@@ -1,0 +1,127 @@
+
+.whole-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: 20%;
+    /* El contenido comienza después del sidebar */
+    width: 80%;
+    /* El contenido ocupa el 80% del ancho restante */
+}
+
+.character-card {
+    display: flex;
+    /* Utiliza flexbox para organizar los elementos */
+    align-items: center;
+    /* Centra verticalmente los elementos */
+    border: 1px solid black;
+    /* Borde negro */
+    border-bottom: 1px solid #ccc;
+    /* Línea divisora */
+    margin-bottom: 20px;
+    /* Espacio inferior entre las tarjetas */
+    padding-bottom: 20px;
+    /* Espacio interno inferior */
+    width: 80%;
+    /* La tarjeta ocupa el 80% del ancho */
+    margin-right: 10%;
+    /* Espacio a la derecha de las tarjetas */
+    margin-left: 10%;
+    /* Espacio a la izquierda de las tarjetas */
+}
+
+.character-image {
+    flex: 0 0 40%;
+    /* La imagen ocupa el 40% del espacio flexible */
+    margin-right: 20px;
+    /* Espacio a la derecha de la imagen */
+}
+
+.character-details {
+    flex: 1;
+    /* El resto del espacio flexible */
+}
+
+.character-name {
+    font-size: 22px;
+    /* Tamaño de fuente del nombre */
+    margin-bottom: 10px;
+    /* Margen inferior del nombre */
+    color: black;
+}
+
+.character-description {
+    font-size: 14px;
+    /* Tamaño de fuente de la descripción */
+    color: #666;
+    /* Color del texto de la descripción */
+}
+
+.character-link {
+    display: inline-block;
+    background-color: #007bff;
+    /* Color de fondo */
+    color: #fff;
+    /* Color del texto */
+    padding: 8px 16px;
+    /* Espaciado interno */
+    border-radius: 4px;
+    /* Bordes redondeados */
+    text-decoration: none;
+    /* Quita el subrayado del enlace */
+    margin-right: 10px;
+    /* Espacio a la derecha */
+}
+
+.grid-containergrid {
+    margin-left: 5%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* Define tres columnas de igual tamaño en cada fila */
+    gap: 20px;
+    /* Espacio entre las tarjetas */
+}
+
+.grid-containergrid .flip-card {
+    width: 200px;
+    height: 300px;
+    perspective: 1000px;
+    /* Establece la perspectiva para el efecto de volteo */
+}
+
+.grid-containergrid .flip-card-inner {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.grid-containergrid .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.grid-containergrid .flip-card-front,
+.grid-containergrid .flip-card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.grid-containergrid .flip-card-front {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-containergrid .flip-card-back {
+    transform: rotateY(180deg);
+}
+
+.grid-containergrid .flip-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* La imagen se ajustará al tamaño de la tarjeta sin deformarse */
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import Charactes from "./Characters";
+import "../assets/css/SideNav.css"
 
 const SideNav = ({ onCharacterClick }) => {
   return (

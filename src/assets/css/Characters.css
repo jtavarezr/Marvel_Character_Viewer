@@ -1,0 +1,32 @@
+.characters-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.characters-name {
+    cursor: pointer;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.characters-name:hover {
+    background-color: #e0e0e0;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+button:hover {
+    color: black;
+    background-color: #0056b3;
+}

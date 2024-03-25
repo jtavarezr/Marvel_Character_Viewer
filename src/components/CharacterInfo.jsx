@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../assets/css/CharacterInfo.css"
 
 const CharacterInfo = ({ character }) => {
   const [seriesList, setSeriesList] = useState([]);
@@ -33,6 +34,7 @@ const CharacterInfo = ({ character }) => {
 
   return (
     <>
+      <div className="whole-info">
       <div className="character-card" onClick={handleClick}>
         <img
           src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
@@ -44,33 +46,37 @@ const CharacterInfo = ({ character }) => {
           <p className="character-description">
             {character.description || "No description available"}
           </p>
-        </div>
-      </div>
-      <br />
-      <div className="grid-containergrid">
-        {seriesList.map((serie) => (
-          <div key={serie.id} className="card">
-            <div className="card-body">
-              <h4 className="card-title">{serie.title}</h4>
-              <h6 className="card-subtitle text-muted">Subtitle</h6>
-            </div>
-            <img
-              src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}
-              alt=""
-            />
-            <div className="card-body">
-              <p className="card-text">{serie.description}</p>
-              <a
-                href={serie.urls[0].url}
-                className="card-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                More...
-              </a>
-            </div>
           </div>
-        ))}
+        </div>
+        <br />
+        <div className="grid-containergrid">
+          {seriesList.map((serie) => (
+            <div key={serie.id} className="flip-card">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <img
+                    src={`${serie.thumbnail.path}.${serie.thumbnail.extension}`}
+                    alt=""
+                    className="flip-card-image"
+                  />
+                </div>
+                <div className="flip-card-back">
+                  <h4 className="flip-card-title">{serie.title}</h4>
+                  <p className="flip-card-subtitle text-muted">Subtitle</p>
+                  <p className="flip-card-description">{serie.description}</p>
+                  <a
+                    href={serie.urls[0].url}
+                    className="flip-card-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    More...
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

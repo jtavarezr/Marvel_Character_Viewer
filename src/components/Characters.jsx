@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import CharacterInfo from "./CharacterInfo"; // Importa el componente CharacterInfo
-
+import "../assets/css/Characters.css"
 /**
  * Functional Component: List
  * This component displays a list of Marvel characters and allows loading more characters when clicking a button.
@@ -78,11 +77,11 @@ const List = ({ onCharacterClick }) => {
   // Renders the list of characters and the 'Load More' button
   return (
     <>
-      <div>
+      <div className="characters-list">
         {list && 
           list.data &&
           list.data.results.map((character, index) => (
-            <li key={`${character.id}-${index}`} // Unique key for each list item
+            <li className="characters-name" key={`${character.id}-${index}`} // Unique key for each list item
               onClick={() => handleClick(character)} // Handles click on the character
             >
               {character.name} {/* Displays the name of the character */}
